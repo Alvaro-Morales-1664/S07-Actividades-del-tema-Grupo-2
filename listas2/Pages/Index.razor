@@ -1,0 +1,83 @@
+﻿@page "/"
+@using System.Collections.Generic
+
+<h1>Operaciones en Lista</h1>
+
+<p>Lista Actual:</p>
+<ul>
+    @foreach (var item in lista)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+<h3>Eliminar un elemento al inicio de la lista</h3>
+<button @onclick="EliminarInicio">Eliminar Inicio</button>
+
+<h3>Eliminar un elemento al final de la lista</h3>
+<button @onclick="EliminarFin">Eliminar Fin</button>
+
+<h3>Eliminar un elemento antes de un dato X</h3>
+<input type="text" @bind="datoXAntes" placeholder="Ingrese el dato X" />
+<button @onclick="EliminarAntes">Eliminar Antes de X</button>
+
+<h3>Eliminar un elemento después de un dato X</h3>
+<input type="text" @bind="datoXDespues" placeholder="Ingrese el dato X" />
+<button @onclick="EliminarDespues">Eliminar Después de X</button>
+
+<h3>Eliminar un nodo en una posición específica</h3>
+<input type="number" @bind="posicion" placeholder="Ingrese la posición" />
+<button @onclick="EliminarEnPosicion">Eliminar en Posición</button>
+
+<h3>Ordenamiento de la lista</h3>
+<button @onclick="Ordenar">Ordenar Lista</button>
+
+@code {
+    List<string> lista = new List<string> { "Manzana", "Banana", "Cereza", "Damasco", "Fresa", "Granada", "Higo", "Kiwi", "Limón", "Mango" };
+    string datoXAntes = "";
+    string datoXDespues = "";
+    int posicion = 0;
+
+    void EliminarInicio()
+    {
+        if (lista.Count > 0)
+            lista.RemoveAt(0);
+    }
+
+    void EliminarFin()
+    {
+        if (lista.Count > 0)
+            lista.RemoveAt(lista.Count - 1);
+    }
+
+    void EliminarAntes()
+    {
+        int index = lista.IndexOf(datoXAntes);
+        if (index > 0)
+            lista.RemoveAt(index - 1);
+    }
+
+    void EliminarDespues()
+    {
+        int index = lista.IndexOf(datoXDespues);
+        if (index != -1 && index < lista.Count - 1)
+            lista.RemoveAt(index + 1);
+    }
+
+    void EliminarEnPosicion()
+    {
+        if (posicion >= 0 && posicion < lista.Count)
+        {
+            lista.RemoveAt(posicion);
+        }
+        else
+        {
+            Console.WriteLine("Posición fuera de rango.");
+        }
+    }
+
+    void Ordenar()
+    {
+        lista.Sort();
+    }
+}

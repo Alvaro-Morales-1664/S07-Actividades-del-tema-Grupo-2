@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/listas2.props" />
+</Project>
